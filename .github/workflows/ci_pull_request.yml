@@ -1,4 +1,4 @@
-name: pull_request
+name: ci_pull_request
 on: pull_request
 jobs:
   lint-unit-test:
