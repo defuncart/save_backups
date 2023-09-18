@@ -1,0 +1,44 @@
+name: cd_tag_on_merge
+on:
+  push:
+permissions:
+  contents: write
+jobs:
+  create_tag:
+    name: Create Tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Determine Commit Number 
+        run: echo "COMMIT_NUMBER=$(git rev-list --count origin/main)" >> $GITHUB_ENV
+      - name: Determine Full Version
+        id: yq
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -r '.version' 'pubspec.yaml'
+      # - name: Determine Version without build number
+        # run: echo "VERSION=$(${{ steps.yq.outputs.result }} | cut -d "+" -f 1)" >> $GITHUB_ENV
+        # run: echo "VERSION=$(grep "version\: " ./pubspec.yaml | sed 's/version\\: //g' | cut -d "+" -f 1)"
+        # echo "VERSION=$(cat pubspec.yaml | grep -i -e "version: " pubspec.yaml | cut -d " " -f 2 | cut -d "+" -f 1)"
+      - name: Print
+        run: |
+          echo ${{ steps.yq.outputs.result }}
+          echo ${{ env.COMMIT_NUMBER }}
+          # echo ${{ env.VERSION }}
+      - uses: rickstaa/action-create-tag@v1 
+        id: create_tag
+        with:
+          tag: "${{ steps.yq.outputs.result }}-${{ env.COMMIT_NUMBER }}"
+          tag_exists_error: false
+          # message: "Latest release"
+
+      # Print result using the env variable.
+    #   -  run: |
+    #       echo "Tag already present: ${{ env.TAG_EXISTS }}"
+
+    #   # Print result using the action output.
+    #   - run: |
+    #       echo "Tag already present: ${{ steps.tag_create.outputs.tag_exists }}"
+    
