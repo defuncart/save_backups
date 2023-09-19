@@ -9,6 +9,12 @@ class BackupItems extends _$BackupItems {
   List<BackupItem> build() => <BackupItem>[];
 
   void add(BackupItem item) => state = [...state, item];
+
+  void remove(BackupItem item) {
+    final oldState = state;
+    oldState.remove(item);
+    state = [...oldState];
+  }
 }
 
 @riverpod

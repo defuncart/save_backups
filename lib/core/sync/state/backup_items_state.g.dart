@@ -13,9 +13,7 @@ String _$hasBackupItemsHash() => r'4fc0570e3d073ee359e03a965b7deec95f495acd';
 final hasBackupItemsProvider = AutoDisposeProvider<bool>.internal(
   hasBackupItems,
   name: r'hasBackupItemsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$hasBackupItemsHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$hasBackupItemsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -25,12 +23,10 @@ String _$backupItemsHash() => r'afd43cae0d5b50f0b4e0680ef87bda62729cd14d';
 
 /// See also [BackupItems].
 @ProviderFor(BackupItems)
-final backupItemsProvider =
-    AutoDisposeNotifierProvider<BackupItems, List<BackupItem>>.internal(
+final backupItemsProvider = AutoDisposeNotifierProvider<BackupItems, List<BackupItem>>.internal(
   BackupItems.new,
   name: r'backupItemsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$backupItemsHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$backupItemsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
