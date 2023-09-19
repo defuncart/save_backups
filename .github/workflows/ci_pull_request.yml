@@ -1,4 +1,4 @@
-name: pull_request
+name: ci_pull_request
 on: pull_request
 jobs:
   lint-unit-test:
@@ -13,11 +13,8 @@ jobs:
           flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
           channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
       - name: Install packages
-        run:
-          flutter pub get
+        run: flutter pub get
       - name: Lint
-        run: 
-          flutter analyze
+        run: flutter analyze
       - name: Unit tests
-        run:
-          flutter test
+        run: flutter test
