@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
+import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
+import 'package:game_saves_backup/core/sync/state/sync_items_state.dart';
 import 'package:game_saves_backup/features/list/ui/list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -41,13 +43,54 @@ class _HomeScreenSync extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(syncControllerProvider);
+
+    return switch (state.status) {
+      SyncStatus.ready => const _SyncButton(),
+      SyncStatus.inProgress => _ProgressIndicator(
+          value: state.progress,
+        ),
+      SyncStatus.complete => const _ProgressIndicator(
+          value: 1,
+        ),
+    };
+  }
+}
+
+class _SyncButton extends ConsumerWidget {
+  const _SyncButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       height: 120,
       width: 120,
       child: FilledButton.icon(
-        onPressed: () {},
+        onPressed: () => ref.read(syncControllerProvider.notifier).sync(),
         icon: const Icon(Icons.sync),
         label: const Text('Sync'),
+      ),
+    );
+  }
+}
+
+class _ProgressIndicator extends StatelessWidget {
+  const _ProgressIndicator({
+    Key? key,
+    required this.value,
+  })  : assert(value >= 0 && value <= 1),
+        super(key: key);
+
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 200,
+      ),
+      child: LinearProgressIndicator(
+        value: value,
       ),
     );
   }
