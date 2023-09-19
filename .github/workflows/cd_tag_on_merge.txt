@@ -1,0 +1,25 @@
+# name: cd_tag_on_merge
+# on:
+#   push:
+# permissions:
+#   contents: write
+# jobs:
+#   create_tag:
+#     name: Create Tag
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - name: Determine Commit Number 
+#         run: echo "COMMIT_NUMBER=$(git rev-list --count origin/main)" >> $GITHUB_ENV
+#       - name: Determine Full Version
+#         id: yq
+#         uses: mikefarah/yq@master
+#         with:
+#           cmd: yq -r '.version' 'pubspec.yaml'
+#       - uses: rickstaa/action-create-tag@v1 
+#         id: create_tag
+#         with:
+#           tag: "${{ steps.yq.outputs.result }}-${{ env.COMMIT_NUMBER }}"
+#           tag_exists_error: false
