@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListScreen extends ConsumerWidget {
   const ListScreen({super.key});
@@ -79,7 +80,7 @@ class _BackupItemTile extends ConsumerWidget {
         title: Text(item.folderName),
         trailing: IconButton(
           icon: const Icon(Icons.folder),
-          onPressed: () {},
+          onPressed: () => launchUrl(Uri.directory(item.path)),
         ),
         subtitle: Text(item.path),
       ),
