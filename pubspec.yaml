@@ -19,6 +19,8 @@ dependencies:
   url_launcher: ^6.1.14
   native_context_menu: ^0.2.2+5
   uuid: ^3.0.6
+  hive: ^4.0.0-dev.2
+  isar_flutter_libs: ^4.0.0-dev.13
   path_provider: ^2.1.1
 
 dev_dependencies:
