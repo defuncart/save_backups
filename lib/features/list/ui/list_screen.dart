@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
+import 'package:native_context_menu/native_context_menu.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ListScreen extends ConsumerWidget {
@@ -66,23 +67,36 @@ class _BackupItemTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Dismissible(
-      key: UniqueKey(),
-      background: const ColoredBox(
-        color: Colors.red,
-        child: Icon(
-          Icons.delete,
-          color: Colors.white,
+    onRemove() => ref.read(backupItemsProvider.notifier).remove(item);
+
+    return ContextMenuRegion(
+      onDismissed: () {},
+      onItemSelected: (item) {
+        if (item.title == context.l10n.listScreenBackupItemRemove) {
+          onRemove();
+        }
+      },
+      menuItems: [
+        MenuItem(title: context.l10n.listScreenBackupItemRemove),
+      ],
+      child: Dismissible(
+        key: UniqueKey(),
+        background: const ColoredBox(
+          color: Colors.red,
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
         ),
-      ),
-      onDismissed: (_) => ref.read(backupItemsProvider.notifier).remove(item),
-      child: ListTile(
-        title: Text(item.folderName),
-        trailing: IconButton(
-          icon: const Icon(Icons.folder),
-          onPressed: () => launchUrl(Uri.directory(item.path)),
+        onDismissed: (_) => onRemove(),
+        child: ListTile(
+          title: Text(item.folderName),
+          trailing: IconButton(
+            icon: const Icon(Icons.folder),
+            onPressed: () => launchUrl(Uri.directory(item.path)),
+          ),
+          subtitle: Text(item.path),
         ),
-        subtitle: Text(item.path),
       ),
     );
   }
