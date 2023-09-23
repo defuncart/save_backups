@@ -103,6 +103,15 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
   }
 
   @override
+  void didUpdateWidget(covariant _BackupItemTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.item.id != widget.item.id) {
+      _controller.text = widget.item.folderName;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     onRemove() => ref.read(backupItemsProvider.notifier).remove(_item);
 
