@@ -151,6 +151,7 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
           ),
           trailing: IconButton(
             icon: const Icon(Icons.folder),
+            // TODO: Does not seem to work on Arch
             onPressed: () => launchUrl(Uri.directory(_item.path)),
           ),
           subtitle: Column(
