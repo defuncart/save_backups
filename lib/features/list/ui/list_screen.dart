@@ -1,6 +1,7 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:game_saves_backup/core/extensions/theme_extensions.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
@@ -57,7 +58,7 @@ class _ListScreenContent extends ConsumerWidget {
   }
 }
 
-class _BackupItemTile extends ConsumerWidget {
+class _BackupItemTile extends ConsumerStatefulWidget {
   const _BackupItemTile({
     Key? key,
     required this.item,
@@ -66,21 +67,61 @@ class _BackupItemTile extends ConsumerWidget {
   final BackupItem item;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    onRemove() => ref.read(backupItemsProvider.notifier).remove(item);
+  ConsumerState<ConsumerStatefulWidget> createState() => __BackupItemTileState();
+}
+
+class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
+  late TextEditingController _controller;
+  late FocusNode _focusNode;
+  var _hasUnsavedChanges = false;
+
+  BackupItem get _item => widget.item;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = TextEditingController()
+      ..text = _item.folderName
+      ..addListener(() {
+        final text = _controller.text.trim();
+        if (_item.folderName != text && !_hasUnsavedChanges) {
+          setState(() => _hasUnsavedChanges = true);
+          // _focusNode.requestFocus();
+        } else if (_item.folderName == text && _hasUnsavedChanges) {
+          setState(() => _hasUnsavedChanges = false);
+          // _focusNode.requestFocus();
+        }
+      });
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    onRemove() => ref.read(backupItemsProvider.notifier).remove(_item);
 
     return ContextMenuRegion(
       onDismissed: () {},
       onItemSelected: (item) {
-        if (item.title == context.l10n.listScreenBackupItemRemove) {
+        if (item.title == context.l10n.listScreenBackupItemEdit) {
+          _focusNode.requestFocus();
+        } else if (item.title == context.l10n.listScreenBackupItemRemove) {
           onRemove();
         }
       },
       menuItems: [
+        MenuItem(title: context.l10n.listScreenBackupItemEdit),
         MenuItem(title: context.l10n.listScreenBackupItemRemove),
       ],
       child: Dismissible(
-        key: UniqueKey(),
+        key: Key(_item.path),
         background: const ColoredBox(
           color: Colors.red,
           child: Icon(
@@ -90,12 +131,43 @@ class _BackupItemTile extends ConsumerWidget {
         ),
         onDismissed: (_) => onRemove(),
         child: ListTile(
-          title: Text(item.folderName),
+          isThreeLine: _hasUnsavedChanges,
+          title: TextField(
+            controller: _controller,
+            onEditingComplete: () {
+              final text = _controller.text.trim();
+              if (text.isNotEmpty) {
+                ref.read(backupItemsProvider.notifier).updateName(
+                      item: _item,
+                      folderName: text,
+                    );
+                _focusNode.unfocus();
+                setState(() => _hasUnsavedChanges = false);
+              }
+            },
+            focusNode: _focusNode,
+            decoration: InputDecoration.collapsed(
+              hintText: context.l10n.listScreenBackupItemNameHintText,
+            ),
+          ),
           trailing: IconButton(
             icon: const Icon(Icons.folder),
-            onPressed: () => launchUrl(Uri.directory(item.path)),
+            onPressed: () => launchUrl(Uri.directory(_item.path)),
           ),
-          subtitle: Text(item.path),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(_item.path),
+              if (_hasUnsavedChanges)
+                Text(
+                  context.l10n.listScreenBackupItemNameUnsavedChangesWarning,
+                  style: context.textTheme.labelSmall?.apply(
+                    color: context.colorScheme.error,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

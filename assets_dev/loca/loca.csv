@@ -4,4 +4,7 @@ homeScreenNoBackupItems;No items to back up
 listScreenTitle;Game List
 listScreenNoBackupItems;Add an item to get started
 listScreenNewBackupItemSelectText;Select
+listScreenBackupItemEdit;Edit
 listScreenBackupItemRemove;Remove
+listScreenBackupItemNameHintText;Name
+listScreenBackupItemNameUnsavedChangesWarning;Unsaved changes
