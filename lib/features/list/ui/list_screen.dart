@@ -148,7 +148,7 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
   Widget build(BuildContext context) {
     // TODO: Does not seem to work on Arch
     onOpen() => launchUrl(Uri.directory(_item.path));
-    onRemove() => ref.read(backupItemsProvider.notifier).remove(_item);
+    onRemove() => ref.read(backupItemsProvider.notifier).remove(_item.id);
 
     return ContextMenuRegion(
       onDismissed: () {},

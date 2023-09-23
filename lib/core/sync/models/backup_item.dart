@@ -9,6 +9,20 @@ class BackupItem {
   final String path;
   final String folderName;
 
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'path': path,
+        'folderName': folderName,
+      };
+
+  factory BackupItem.fromJson(Map<String, dynamic> json) {
+    return BackupItem(
+      id: json['id'] ?? '',
+      path: json['path'] ?? '',
+      folderName: json['folderName'] ?? '',
+    );
+  }
+
   @override
   String toString() => 'BackupItem(id: $id, path: $path, folderName: $folderName)';
 
@@ -20,5 +34,5 @@ class BackupItem {
   }
 
   @override
-  int get hashCode => path.hashCode ^ folderName.hashCode;
+  int get hashCode => id.hashCode ^ path.hashCode ^ folderName.hashCode;
 }
