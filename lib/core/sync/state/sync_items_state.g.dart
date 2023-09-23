@@ -6,7 +6,20 @@ part of 'sync_items_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$syncControllerHash() => r'27bcbd1a5e237d6a68e61d11b8b5b2332a918a52';
+String _$syncDirectoryControllerHash() => r'5b30e0e7734b2eb82761898ea92c216b79577645';
+
+/// See also [SyncDirectoryController].
+@ProviderFor(SyncDirectoryController)
+final syncDirectoryControllerProvider = AutoDisposeAsyncNotifierProvider<SyncDirectoryController, String>.internal(
+  SyncDirectoryController.new,
+  name: r'syncDirectoryControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$syncDirectoryControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SyncDirectoryController = AutoDisposeAsyncNotifier<String>;
+String _$syncControllerHash() => r'7b6ecb1ea3c7162e4d12b77ad05e7df958e89601';
 
 /// See also [SyncController].
 @ProviderFor(SyncController)

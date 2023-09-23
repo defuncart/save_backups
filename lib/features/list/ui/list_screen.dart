@@ -5,6 +5,7 @@ import 'package:game_saves_backup/core/extensions/theme_extensions.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
+import 'package:game_saves_backup/core/sync/state/sync_items_state.dart';
 import 'package:native_context_menu/native_context_menu.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,6 +17,9 @@ class ListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.listScreenTitle),
+        actions: const [
+          _SyncDirAction(),
+        ],
       ),
       body: const _ListScreenContent(),
       floatingActionButton: FloatingActionButton.large(
@@ -32,6 +36,34 @@ class ListScreen extends ConsumerWidget {
           }
         },
       ),
+    );
+  }
+}
+
+class _SyncDirAction extends ConsumerWidget {
+  const _SyncDirAction({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final syncDirectory = ref.watch(syncDirectoryControllerProvider);
+
+    return syncDirectory.map(
+      data: (data) => IconButton(
+        icon: const Icon(Icons.backup),
+        onPressed: () async {
+          final directoryPath = await getDirectoryPath(
+            initialDirectory: data.value,
+            confirmButtonText: context.l10n.listScreenNewBackupItemSelectText,
+          );
+          if (directoryPath != null) {
+            ref.read(syncDirectoryControllerProvider.notifier).setPath(
+                  directoryPath,
+                );
+          }
+        },
+      ),
+      error: (_) => const SizedBox.shrink(),
+      loading: (_) => const SizedBox.shrink(),
     );
   }
 }
