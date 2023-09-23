@@ -26,10 +26,9 @@ class ListScreen extends ConsumerWidget {
             confirmButtonText: context.l10n.listScreenNewBackupItemSelectText,
           );
           if (directoryPath != null) {
-            ref.read(backupItemsProvider.notifier).add(BackupItem(
+            ref.read(backupItemsProvider.notifier).add(
                   path: directoryPath,
-                  folderName: directoryPath.split('/').last,
-                ));
+                );
           }
         },
       ),
@@ -121,7 +120,7 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
         MenuItem(title: context.l10n.listScreenBackupItemRemove),
       ],
       child: Dismissible(
-        key: Key(_item.path),
+        key: Key(_item.id),
         background: const ColoredBox(
           color: Colors.red,
           child: Icon(
