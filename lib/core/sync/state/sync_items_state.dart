@@ -1,4 +1,5 @@
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
+import 'package:game_saves_backup/core/sync/repositories/settings_repository.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -6,11 +7,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sync_items_state.g.dart';
 
 @riverpod
+SyncSettingsRepository _syncSettingsRepository(_SyncSettingsRepositoryRef ref) => HiveSyncSettingsRepository();
+
+@riverpod
 class SyncDirectoryController extends _$SyncDirectoryController {
   @override
-  Future<String> build() async => (await getDownloadsDirectory())!.path;
+  Future<String> build() async =>
+      ref.read(_syncSettingsRepositoryProvider).syncDirectory ?? (await getDownloadsDirectory())!.path;
 
   Future<void> setPath(String path) async {
+    ref.read(_syncSettingsRepositoryProvider).syncDirectory = path;
     state = AsyncValue.data(path);
   }
 }

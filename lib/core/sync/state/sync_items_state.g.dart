@@ -6,7 +6,20 @@ part of 'sync_items_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$syncDirectoryControllerHash() => r'6c54446e77468d3e86d5c92da3c8dc42abb7a5f6';
+String _$syncSettingsRepositoryHash() => r'8f77cb3ac719fde462700c2ad41587dcc63e47ce';
+
+/// See also [_syncSettingsRepository].
+@ProviderFor(_syncSettingsRepository)
+final _syncSettingsRepositoryProvider = AutoDisposeProvider<SyncSettingsRepository>.internal(
+  _syncSettingsRepository,
+  name: r'_syncSettingsRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$syncSettingsRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _SyncSettingsRepositoryRef = AutoDisposeProviderRef<SyncSettingsRepository>;
+String _$syncDirectoryControllerHash() => r'0531363f09c12c48f50ce60f65e185f756970d14';
 
 /// See also [SyncDirectoryController].
 @ProviderFor(SyncDirectoryController)
