@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/repositories/files_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/settings_repository.dart';
@@ -32,6 +34,7 @@ class SyncStatusController extends _$SyncStatusController {
   SyncStatus build() => const SyncStatusReady();
 
   Future<void> sync() async {
+    log('Starting sync');
     final items = ref.read(backupItemsProvider);
     state = const SyncStatusReady();
 
@@ -44,8 +47,10 @@ class SyncStatusController extends _$SyncStatusController {
         count: foldersSynced,
         total: items.length,
       );
+      final from = item.path;
       final to = p.join(syncPath, item.folderName);
-      await ref.read(_filesRepositoryProvider).sync(item.path, to);
+      log('Syncing $foldersSynced/${items.length}: $from to $to');
+      await ref.read(_filesRepositoryProvider).sync(from, to);
 
       foldersSynced++;
     }
@@ -53,6 +58,7 @@ class SyncStatusController extends _$SyncStatusController {
     state = SyncStatusCompleted(
       itemsSynced: items.length,
     );
+    log('Sync completed');
   }
 
   void reset() => state = const SyncStatusReady();
