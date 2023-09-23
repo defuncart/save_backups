@@ -189,6 +189,8 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
             decoration: InputDecoration.collapsed(
               hintText: context.l10n.listScreenBackupItemNameHintText,
             ),
+            // disable context menu to avoid interfering with native context menu
+            contextMenuBuilder: (context, state) => const SizedBox.shrink(),
           ),
           trailing: IconButton(
             icon: const Icon(Icons.folder),
