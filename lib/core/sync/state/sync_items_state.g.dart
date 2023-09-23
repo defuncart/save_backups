@@ -19,6 +19,19 @@ final _syncSettingsRepositoryProvider = AutoDisposeProvider<SyncSettingsReposito
 );
 
 typedef _SyncSettingsRepositoryRef = AutoDisposeProviderRef<SyncSettingsRepository>;
+String _$filesRepositoryHash() => r'5324da4beee0847fbeb60560d11e8a83092d516d';
+
+/// See also [_filesRepository].
+@ProviderFor(_filesRepository)
+final _filesRepositoryProvider = AutoDisposeProvider<FilesRepository>.internal(
+  _filesRepository,
+  name: r'_filesRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$filesRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _FilesRepositoryRef = AutoDisposeProviderRef<FilesRepository>;
 String _$syncDirectoryControllerHash() => r'0531363f09c12c48f50ce60f65e185f756970d14';
 
 /// See also [SyncDirectoryController].
@@ -32,7 +45,7 @@ final syncDirectoryControllerProvider = AutoDisposeAsyncNotifierProvider<SyncDir
 );
 
 typedef _$SyncDirectoryController = AutoDisposeAsyncNotifier<String>;
-String _$syncStatusControllerHash() => r'75377444ac6685fa4fd12c2ad29d99483c60e3b5';
+String _$syncStatusControllerHash() => r'79f9a329f1f1e51c9a98db3f9c6b77f480d82d94';
 
 /// See also [SyncStatusController].
 @ProviderFor(SyncStatusController)
