@@ -1,0 +1,16 @@
+keys;en
+myKey;Hello world!
+homeScreenNoBackupItems;No items to back up
+homeScreenSyncReady;Sync
+homeScreenSyncProgress;Syncing {count}/{total}...
+homeScreenSyncCompleted;{itemsSynced, plural, one{{itemsSynced} item synced!} other{{itemsSynced} items synced}}
+homeScreenSyncCompletedDone;Done
+listScreenTitle;Game List
+listScreenNoBackupItems;Add an item to get started
+listScreenNewBackupItemSelectText;Select
+listScreenBackupItemOpen;Open
+listScreenBackupItemCopyPath;Copy path
+listScreenBackupItemEdit;Edit
+listScreenBackupItemRemove;Remove
+listScreenBackupItemNameHintText;Name
+listScreenBackupItemNameUnsavedChangesWarning;Unsaved changes
