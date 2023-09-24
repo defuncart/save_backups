@@ -1,5 +1,6 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/extensions/theme_extensions.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
@@ -145,18 +146,30 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Does not seem to work on Arch
+    onOpen() => launchUrl(Uri.directory(_item.path));
     onRemove() => ref.read(backupItemsProvider.notifier).remove(_item);
 
     return ContextMenuRegion(
       onDismissed: () {},
       onItemSelected: (item) {
-        if (item.title == context.l10n.listScreenBackupItemEdit) {
+        if (item.title == context.l10n.listScreenBackupItemOpen) {
+          onOpen();
+        } else if (item.title == context.l10n.listScreenBackupItemCopyPath) {
+          Clipboard.setData(
+            ClipboardData(
+              text: _item.path,
+            ),
+          );
+        } else if (item.title == context.l10n.listScreenBackupItemEdit) {
           _focusNode.requestFocus();
         } else if (item.title == context.l10n.listScreenBackupItemRemove) {
           onRemove();
         }
       },
       menuItems: [
+        MenuItem(title: context.l10n.listScreenBackupItemOpen),
+        MenuItem(title: context.l10n.listScreenBackupItemCopyPath),
         MenuItem(title: context.l10n.listScreenBackupItemEdit),
         MenuItem(title: context.l10n.listScreenBackupItemRemove),
       ],
@@ -194,8 +207,7 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
           ),
           trailing: IconButton(
             icon: const Icon(Icons.folder),
-            // TODO: Does not seem to work on Arch
-            onPressed: () => launchUrl(Uri.directory(_item.path)),
+            onPressed: onOpen,
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

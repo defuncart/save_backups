@@ -8,6 +8,8 @@ homeScreenSyncCompletedDone;Done
 listScreenTitle;Game List
 listScreenNoBackupItems;Add an item to get started
 listScreenNewBackupItemSelectText;Select
+listScreenBackupItemOpen;Open
+listScreenBackupItemCopyPath;Copy path
 listScreenBackupItemEdit;Edit
 listScreenBackupItemRemove;Remove
 listScreenBackupItemNameHintText;Name
