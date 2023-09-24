@@ -1,4 +1,3 @@
-// import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,33 +16,28 @@ class SyncDirectoryController extends _$SyncDirectoryController {
 }
 
 @riverpod
-class SyncController extends _$SyncController {
+class SyncStatusController extends _$SyncStatusController {
   @override
-  SyncProgress build() => const SyncProgress(
-        status: SyncStatus.ready,
-        progress: 0,
-      );
+  SyncStatus build() => const SyncStatusReady();
 
   Future<void> sync() async {
     final items = ref.read(backupItemsProvider);
-    state = const SyncProgress(
-      status: SyncStatus.inProgress,
-      progress: 0,
-    );
+    state = const SyncStatusReady();
 
     int foldersSynced = 0;
     for (final _ in items) {
+      state = SyncStatusProgress(
+        count: foldersSynced,
+        total: items.length,
+      );
       await Future.delayed(const Duration(seconds: 2));
       foldersSynced++;
-      state = SyncProgress(
-        status: SyncStatus.inProgress,
-        progress: foldersSynced / items.length,
-      );
     }
 
-    state = const SyncProgress(
-      status: SyncStatus.complete,
-      progress: 1,
+    state = SyncStatusCompleted(
+      itemsSynced: items.length,
     );
   }
+
+  void reset() => state = const SyncStatusReady();
 }

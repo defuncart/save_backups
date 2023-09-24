@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:game_saves_backup/core/extensions/iterable_widget_extension.dart';
+import 'package:game_saves_backup/core/extensions/theme_extensions.dart';
 import 'package:game_saves_backup/core/l10n/l10n_extension.dart';
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/state/backup_items_state.dart';
@@ -43,22 +45,30 @@ class _HomeScreenSync extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(syncControllerProvider);
+    final state = ref.watch(syncStatusControllerProvider);
 
-    return switch (state.status) {
-      SyncStatus.ready => const _SyncButton(),
-      SyncStatus.inProgress => _ProgressIndicator(
-          value: state.progress,
+    return switch (state) {
+      SyncStatusReady() => _SyncButton(
+          onSync: ref.read(syncStatusControllerProvider.notifier).sync,
         ),
-      SyncStatus.complete => const _ProgressIndicator(
-          value: 1,
+      SyncStatusProgress() => _SyncProgress(
+          state: state,
+        ),
+      SyncStatusCompleted() => _SyncCompleted(
+          itemsSynced: state.itemsSynced,
+          onDone: ref.read(syncStatusControllerProvider.notifier).reset,
         ),
     };
   }
 }
 
 class _SyncButton extends ConsumerWidget {
-  const _SyncButton({Key? key}) : super(key: key);
+  const _SyncButton({
+    Key? key,
+    required this.onSync,
+  }) : super(key: key);
+
+  final VoidCallback onSync;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,32 +76,74 @@ class _SyncButton extends ConsumerWidget {
       height: 120,
       width: 120,
       child: FilledButton.icon(
-        onPressed: () => ref.read(syncControllerProvider.notifier).sync(),
+        onPressed: onSync,
         icon: const Icon(Icons.sync),
-        label: const Text('Sync'),
+        label: Text(
+          context.l10n.homeScreenSyncReady,
+        ),
       ),
     );
   }
 }
 
-class _ProgressIndicator extends StatelessWidget {
-  const _ProgressIndicator({
+class _SyncProgress extends StatelessWidget {
+  const _SyncProgress({
     Key? key,
-    required this.value,
-  })  : assert(value >= 0 && value <= 1),
-        super(key: key);
+    required this.state,
+  }) : super(key: key);
 
-  final double value;
+  final SyncStatusProgress state;
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 200,
-      ),
-      child: LinearProgressIndicator(
-        value: value,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: 200,
+          ),
+          child: LinearProgressIndicator(
+            value: state.progress,
+          ),
+        ),
+        Text(
+          context.l10n.homeScreenSyncProgress(state.count, state.total),
+        ),
+      ].intersperse(const SizedBox(height: 8)),
+    );
+  }
+}
+
+class _SyncCompleted extends StatelessWidget {
+  const _SyncCompleted({
+    Key? key,
+    required this.itemsSynced,
+    required this.onDone,
+  }) : super(key: key);
+
+  final int itemsSynced;
+  final VoidCallback onDone;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          '🎉',
+          style: context.textTheme.displayLarge,
+        ),
+        Text(
+          context.l10n.homeScreenSyncCompleted(itemsSynced),
+        ),
+        TextButton(
+          onPressed: onDone,
+          child: Text(
+            context.l10n.homeScreenSyncCompletedDone,
+          ),
+        ),
+      ].intersperse(const SizedBox(height: 8)),
     );
   }
 }
