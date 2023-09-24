@@ -1,6 +1,7 @@
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/repositories/items_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/uuid_repository.dart';
+import 'package:path/path.dart' as p;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'backup_items_state.g.dart';
@@ -20,7 +21,10 @@ class BackupItems extends _$BackupItems {
 
   void add({required String path}) {
     final id = ref.read(_uuidRepositoryProvider).generate();
-    final folderName = path.split('/').last;
+    final pathComponents = p.split(path);
+    final folderName = pathComponents.indexOf('drive_c') > 0
+        ? pathComponents.sublist(0, pathComponents.indexOf('drive_c')).last
+        : pathComponents.last;
     ref.read(_itemsRepositoryProvider).addItem(
           BackupItem(
             id: id,

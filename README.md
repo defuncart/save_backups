@@ -4,10 +4,10 @@ An application to backup game saves.
 
 ## About
 
-- A cross-platform application which can backup multiple game saves files
 - Built for use on the steam deck (Game and Desktop mode)
 - Compatible with Lutris, Heroic, Steam, Emulation etc.
 - Individual game backup folder names can be customized
+    - Inside prefixes, folder name defaults to prefix name
 - Target Backup folder can be selected (defaults to `/home/deck/Downloads`)
 - Minimal, easy to use interface
 
