@@ -22,7 +22,7 @@ Looking for more functionality? Check out [ludusavi](https://github.com/mtkenner
 
 ## Releases
 
-Check out [release](https://github.com/defuncart/game_saves_backup/releases) for the latest release.
+Check out [releases](https://github.com/defuncart/game_saves_backup/releases) for the latest release.
 
 If you wish to build from source, you will require:
 
@@ -42,6 +42,10 @@ The application has not been tested on windows, however it *should™* theoretic
 ## Motivation
 
 I've encountered some issues in which saves for a particular game via emulation are corrupted, or when upgrading proton version for a Heroic prefix, the save data is lost. The goal of this project is to provide a easy way to backup your most important game saves easily. As this is a personal project, currently there is no roadmap, however new features may be developed when deemed required.
+
+## Notes
+
+- The backup items database is stored at `/home/deck/Documents/game_saves_backup`. Do not delete any files in this folder.
 
 ## Known Issues
 
