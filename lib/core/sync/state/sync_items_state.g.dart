@@ -45,7 +45,21 @@ final syncDirectoryControllerProvider = AutoDisposeAsyncNotifierProvider<SyncDir
 );
 
 typedef _$SyncDirectoryController = AutoDisposeAsyncNotifier<String>;
-String _$syncStatusControllerHash() => r'79f9a329f1f1e51c9a98db3f9c6b77f480d82d94';
+String _$syncCreateNewFoldersControllerHash() => r'f0db9c4c3f39d4e997730487512e201ee4bf00cd';
+
+/// See also [SyncCreateNewFoldersController].
+@ProviderFor(SyncCreateNewFoldersController)
+final syncCreateNewFoldersControllerProvider =
+    AutoDisposeNotifierProvider<SyncCreateNewFoldersController, bool>.internal(
+  SyncCreateNewFoldersController.new,
+  name: r'syncCreateNewFoldersControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$syncCreateNewFoldersControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SyncCreateNewFoldersController = AutoDisposeNotifier<bool>;
+String _$syncStatusControllerHash() => r'80affaf2bb94e7a677c3e4ac92414af2329d5063';
 
 /// See also [SyncStatusController].
 @ProviderFor(SyncStatusController)

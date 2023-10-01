@@ -1,5 +1,6 @@
 import 'dart:developer' show log;
 
+import 'package:clock/clock.dart';
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/repositories/files_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/settings_repository.dart';
@@ -29,6 +30,18 @@ class SyncDirectoryController extends _$SyncDirectoryController {
 }
 
 @riverpod
+class SyncCreateNewFoldersController extends _$SyncCreateNewFoldersController {
+  @override
+  bool build() => ref.read(_syncSettingsRepositoryProvider).syncToNewFolder;
+
+  void toggle() {
+    final newValue = !state;
+    ref.read(_syncSettingsRepositoryProvider).syncToNewFolder = newValue;
+    state = newValue;
+  }
+}
+
+@riverpod
 class SyncStatusController extends _$SyncStatusController {
   @override
   SyncStatus build() => const SyncStatusReady();
@@ -39,7 +52,11 @@ class SyncStatusController extends _$SyncStatusController {
     state = const SyncStatusReady();
 
     final syncDirectory = await ref.read(syncDirectoryControllerProvider.future);
-    final syncPath = p.join(syncDirectory, 'GameSavesBackup');
+    var syncPath = p.join(syncDirectory, 'GameSavesBackup');
+    if (ref.read(syncCreateNewFoldersControllerProvider)) {
+      final timestamp = clock.now().toUtc().toString().replaceAll(':', '-');
+      syncPath = p.join(syncPath, timestamp);
+    }
 
     int foldersSynced = 0;
     for (final item in items) {

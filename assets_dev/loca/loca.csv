@@ -6,6 +6,9 @@ homeScreenSyncProgress;Syncing {count}/{total}...
 homeScreenSyncCompleted;{itemsSynced, plural, one{{itemsSynced} item synced!} other{{itemsSynced} items synced}}
 homeScreenSyncCompletedDone;Done
 listScreenTitle;Game List
+listScreenActionTooltipCreateNewFoldersEnabled;Each sync backs up to a timestamp folder 
+listScreenActionTooltipCreateNewFoldersDisabled;Each sync overwrites existing backup 
+listScreenActionTooltipSyncDirectory;Directory to sync backups
 listScreenNoBackupItems;Add an item to get started
 listScreenNewBackupItemSelectText;Select
 listScreenBackupItemOpen;Open

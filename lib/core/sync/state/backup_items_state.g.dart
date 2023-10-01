@@ -45,7 +45,7 @@ final hasBackupItemsProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef HasBackupItemsRef = AutoDisposeProviderRef<bool>;
-String _$backupItemsHash() => r'bc40891f6fb74fa3eece8b7a5c7f1c862af9ce8a';
+String _$backupItemsHash() => r'589c8e65d09eb99ca703c83c08ae856512e59785';
 
 /// See also [BackupItems].
 @ProviderFor(BackupItems)

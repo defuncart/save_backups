@@ -19,6 +19,7 @@ class ListScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(context.l10n.listScreenTitle),
         actions: const [
+          _SyncCreateNewFoldersAction(),
           _SyncDirAction(),
         ],
       ),
@@ -50,6 +51,7 @@ class _SyncDirAction extends ConsumerWidget {
 
     return syncDirectory.map(
       data: (data) => IconButton(
+        tooltip: context.l10n.listScreenActionTooltipSyncDirectory,
         icon: const Icon(Icons.backup),
         onPressed: () async {
           final directoryPath = await getDirectoryPath(
@@ -65,6 +67,30 @@ class _SyncDirAction extends ConsumerWidget {
       ),
       error: (_) => const SizedBox.shrink(),
       loading: (_) => const SizedBox.shrink(),
+    );
+  }
+}
+
+class _SyncCreateNewFoldersAction extends ConsumerWidget {
+  const _SyncCreateNewFoldersAction({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final createNewFolders = ref.watch(syncCreateNewFoldersControllerProvider);
+
+    return IconButton(
+      tooltip: createNewFolders
+          ? context.l10n.listScreenActionTooltipCreateNewFoldersEnabled
+          : context.l10n.listScreenActionTooltipCreateNewFoldersDisabled,
+      icon: createNewFolders
+          ? Icon(
+              Icons.create_new_folder,
+              color: context.colorScheme.primary,
+            )
+          : const Icon(
+              Icons.create_new_folder_outlined,
+            ),
+      onPressed: ref.read(syncCreateNewFoldersControllerProvider.notifier).toggle,
     );
   }
 }
