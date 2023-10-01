@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/extensions/iterable_widget_extension.dart';
@@ -14,6 +16,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const _ExitButton(),
+      ),
       body: const _HomeScreenContent(),
       floatingActionButton: FloatingActionButton.small(
         child: const Icon(Icons.settings),
@@ -24,6 +29,23 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ExitButton extends ConsumerWidget {
+  const _ExitButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(syncStatusControllerProvider);
+
+    return switch (state) {
+      SyncStatusProgress() => const SizedBox.shrink(),
+      _ => IconButton(
+          onPressed: () => exit(0),
+          icon: const Icon(Icons.close),
+        ),
+    };
   }
 }
 

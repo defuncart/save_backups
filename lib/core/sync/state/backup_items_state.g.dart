@@ -6,6 +6,19 @@ part of 'backup_items_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$itemsRepositoryHash() => r'31e00a9f2526f3e0a9943c95b238a33ba8d02bd2';
+
+/// See also [_itemsRepository].
+@ProviderFor(_itemsRepository)
+final _itemsRepositoryProvider = AutoDisposeProvider<ItemsRepository>.internal(
+  _itemsRepository,
+  name: r'_itemsRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$itemsRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _ItemsRepositoryRef = AutoDisposeProviderRef<ItemsRepository>;
 String _$uuidRepositoryHash() => r'aa2c84834077ed67e599b255ec0729540537b881';
 
 /// See also [_uuidRepository].
@@ -32,7 +45,7 @@ final hasBackupItemsProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef HasBackupItemsRef = AutoDisposeProviderRef<bool>;
-String _$backupItemsHash() => r'295f27ee3826791f077a5eab4d56541cd452f524';
+String _$backupItemsHash() => r'589c8e65d09eb99ca703c83c08ae856512e59785';
 
 /// See also [BackupItems].
 @ProviderFor(BackupItems)
