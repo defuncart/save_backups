@@ -43,7 +43,7 @@ class ListScreen extends ConsumerWidget {
 }
 
 class _SyncDirAction extends ConsumerWidget {
-  const _SyncDirAction({Key? key}) : super(key: key);
+  const _SyncDirAction();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,7 +72,7 @@ class _SyncDirAction extends ConsumerWidget {
 }
 
 class _SyncCreateNewFoldersAction extends ConsumerWidget {
-  const _SyncCreateNewFoldersAction({Key? key}) : super(key: key);
+  const _SyncCreateNewFoldersAction();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,7 +96,7 @@ class _SyncCreateNewFoldersAction extends ConsumerWidget {
 }
 
 class _ListScreenContent extends ConsumerWidget {
-  const _ListScreenContent({Key? key}) : super(key: key);
+  const _ListScreenContent();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -118,9 +118,8 @@ class _ListScreenContent extends ConsumerWidget {
 
 class _BackupItemTile extends ConsumerStatefulWidget {
   const _BackupItemTile({
-    Key? key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final BackupItem item;
 

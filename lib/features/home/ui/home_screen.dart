@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _ExitButton extends ConsumerWidget {
-  const _ExitButton({Key? key}) : super(key: key);
+  const _ExitButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,7 +50,7 @@ class _ExitButton extends ConsumerWidget {
 }
 
 class _HomeScreenContent extends ConsumerWidget {
-  const _HomeScreenContent({Key? key}) : super(key: key);
+  const _HomeScreenContent();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +63,7 @@ class _HomeScreenContent extends ConsumerWidget {
 }
 
 class _HomeScreenSync extends ConsumerWidget {
-  const _HomeScreenSync({Key? key}) : super(key: key);
+  const _HomeScreenSync();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,9 +86,8 @@ class _HomeScreenSync extends ConsumerWidget {
 
 class _SyncButton extends ConsumerWidget {
   const _SyncButton({
-    Key? key,
     required this.onSync,
-  }) : super(key: key);
+  });
 
   final VoidCallback onSync;
 
@@ -110,9 +109,8 @@ class _SyncButton extends ConsumerWidget {
 
 class _SyncProgress extends StatelessWidget {
   const _SyncProgress({
-    Key? key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final SyncStatusProgress state;
 
@@ -139,10 +137,9 @@ class _SyncProgress extends StatelessWidget {
 
 class _SyncCompleted extends StatelessWidget {
   const _SyncCompleted({
-    Key? key,
     required this.itemsSynced,
     required this.onDone,
-  }) : super(key: key);
+  });
 
   final int itemsSynced;
   final VoidCallback onDone;
