@@ -1,6 +1,6 @@
 # game_saves_backup
 
-An application to backup game saves.
+A linux application to backup game saves.
 
 ## About
 

@@ -1,5 +1,5 @@
 name: game_saves_backup
-description: An application to backup game saves.
+description: A linux application to backup game saves.
 publish_to: 'none'
 version: 0.0.1+1
 
