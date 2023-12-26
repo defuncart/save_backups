@@ -38,7 +38,7 @@ If you wish to build from source, you will require:
     - libgtk-3-dev
     - libblkid-dev
 
-The application has not been tested on windows, however it *should™* theoretically work.
+The application has not been tested on windows, however it *should™* theoretically work. To generate relevant flutter project files, firstly run `fvm flutter create . --platform=macos,windows`.
 
 ## Motivation
 
