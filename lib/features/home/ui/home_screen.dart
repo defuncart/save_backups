@@ -97,6 +97,7 @@ class _SyncButton extends ConsumerWidget {
       height: 120,
       width: 120,
       child: FilledButton.icon(
+        focusNode: FocusNode()..requestFocus(),
         onPressed: onSync,
         icon: const Icon(Icons.sync),
         label: Text(
