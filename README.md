@@ -1,6 +1,6 @@
 # game_saves_backup
 
-An application to backup game saves.
+A linux application to backup game saves.
 
 ## About
 
@@ -12,9 +12,13 @@ An application to backup game saves.
 - Each sync can either overwrite existing backup or creates a new backup
 - Minimal, easy to use interface
 
-| | | |
-| - | - | - |
-| ![](docs/screenshot1.png) | ![](docs/screenshot2.png) | ![](docs/screenshot3.png) |
+<table>
+<tr>
+<td><img src="docs/screenshot1.png"></td>
+<td><img src="docs/screenshot2.png"></td>
+<td><img src="docs/screenshot3.png"></td>
+</tr>
+</table>
 
 Not sure where game save files are located? Take a look at the [PC Gaming Wiki](https://www.pcgamingwiki.com/).
 
@@ -28,16 +32,13 @@ If you wish to build from source, you will require:
 
 - Flutter >= 3.13
 - Dart >= 3.1
-- macOS:
-    - Xcode
-    - CocoaPods
 - linux:
     - clang
     - ninja-build
     - libgtk-3-dev
     - libblkid-dev
 
-The application has not been tested on windows, however it *should™* theoretically work.
+The application has not been tested on windows, however it *should™* theoretically work. To generate relevant flutter project files, firstly run `fvm flutter create . --platform=macos,windows`.
 
 ## Motivation
 
