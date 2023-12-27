@@ -85,3 +85,10 @@ class SyncStatusController extends _$SyncStatusController {
 
   void reset() => state = const SyncStatusReady();
 }
+
+@riverpod
+Future<bool> backupItemExists(
+  BackupItemExistsRef ref, {
+  required String path,
+}) =>
+    ref.read(_filesRepositoryProvider).dirExists(path);

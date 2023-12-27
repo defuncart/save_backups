@@ -32,7 +32,150 @@ final _filesRepositoryProvider = AutoDisposeProvider<FilesRepository>.internal(
 );
 
 typedef _FilesRepositoryRef = AutoDisposeProviderRef<FilesRepository>;
-String _$syncDirectoryControllerHash() => r'0531363f09c12c48f50ce60f65e185f756970d14';
+String _$backupItemExistsHash() => r'76658db805b09e5c73fdc9301ef4093f1fd1e01d';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [backupItemExists].
+@ProviderFor(backupItemExists)
+const backupItemExistsProvider = BackupItemExistsFamily();
+
+/// See also [backupItemExists].
+class BackupItemExistsFamily extends Family<AsyncValue<bool>> {
+  /// See also [backupItemExists].
+  const BackupItemExistsFamily();
+
+  /// See also [backupItemExists].
+  BackupItemExistsProvider call({
+    required String path,
+  }) {
+    return BackupItemExistsProvider(
+      path: path,
+    );
+  }
+
+  @override
+  BackupItemExistsProvider getProviderOverride(
+    covariant BackupItemExistsProvider provider,
+  ) {
+    return call(
+      path: provider.path,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+
+  @override
+  String? get name => r'backupItemExistsProvider';
+}
+
+/// See also [backupItemExists].
+class BackupItemExistsProvider extends AutoDisposeFutureProvider<bool> {
+  /// See also [backupItemExists].
+  BackupItemExistsProvider({
+    required String path,
+  }) : this._internal(
+          (ref) => backupItemExists(
+            ref as BackupItemExistsRef,
+            path: path,
+          ),
+          from: backupItemExistsProvider,
+          name: r'backupItemExistsProvider',
+          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$backupItemExistsHash,
+          dependencies: BackupItemExistsFamily._dependencies,
+          allTransitiveDependencies: BackupItemExistsFamily._allTransitiveDependencies,
+          path: path,
+        );
+
+  BackupItemExistsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.path,
+  }) : super.internal();
+
+  final String path;
+
+  @override
+  Override overrideWith(
+    FutureOr<bool> Function(BackupItemExistsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: BackupItemExistsProvider._internal(
+        (ref) => create(ref as BackupItemExistsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        path: path,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<bool> createElement() {
+    return _BackupItemExistsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BackupItemExistsProvider && other.path == path;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, path.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin BackupItemExistsRef on AutoDisposeFutureProviderRef<bool> {
+  /// The parameter `path` of this provider.
+  String get path;
+}
+
+class _BackupItemExistsProviderElement extends AutoDisposeFutureProviderElement<bool> with BackupItemExistsRef {
+  _BackupItemExistsProviderElement(super.provider);
+
+  @override
+  String get path => (origin as BackupItemExistsProvider).path;
+}
+
+String _$syncDirectoryControllerHash() => r'933f5953a47628458c1679b85526638207880733';
 
 /// See also [SyncDirectoryController].
 @ProviderFor(SyncDirectoryController)
@@ -45,7 +188,7 @@ final syncDirectoryControllerProvider = AutoDisposeAsyncNotifierProvider<SyncDir
 );
 
 typedef _$SyncDirectoryController = AutoDisposeAsyncNotifier<String>;
-String _$syncCreateNewFoldersControllerHash() => r'f0db9c4c3f39d4e997730487512e201ee4bf00cd';
+String _$syncCreateNewFoldersControllerHash() => r'246c74ce729476bf53750725895abc793efdda9c';
 
 /// See also [SyncCreateNewFoldersController].
 @ProviderFor(SyncCreateNewFoldersController)
@@ -59,7 +202,7 @@ final syncCreateNewFoldersControllerProvider =
 );
 
 typedef _$SyncCreateNewFoldersController = AutoDisposeNotifier<bool>;
-String _$syncStatusControllerHash() => r'80affaf2bb94e7a677c3e4ac92414af2329d5063';
+String _$syncStatusControllerHash() => r'9d378bd6cf856653cb07d075461cd94c53a58100';
 
 /// See also [SyncStatusController].
 @ProviderFor(SyncStatusController)

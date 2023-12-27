@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 
 class FilesRepository {
   Future<void> sync(String from, String to) async {
-    if (!await Directory(from).exists()) {
+    if (!await dirExists(from)) {
       log('$from does not exist');
       return;
     }
@@ -28,4 +28,6 @@ class FilesRepository {
       }
     }
   }
+
+  Future<bool> dirExists(String path) => Directory(path).exists();
 }
