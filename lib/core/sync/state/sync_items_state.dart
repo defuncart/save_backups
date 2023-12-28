@@ -1,6 +1,7 @@
 import 'dart:developer' show log;
 
 import 'package:clock/clock.dart';
+import 'package:flutter/foundation.dart';
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/repositories/files_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/settings_repository.dart';
@@ -20,8 +21,12 @@ FilesRepository _filesRepository(_FilesRepositoryRef ref) => FilesRepository();
 @riverpod
 class SyncDirectoryController extends _$SyncDirectoryController {
   @override
-  Future<String> build() async =>
-      ref.read(_syncSettingsRepositoryProvider).syncDirectory ?? (await getDownloadsDirectory())!.path;
+  Future<String> build() async => ref.read(_syncSettingsRepositoryProvider).syncDirectory ?? await _defaultDirectory;
+
+  Future<String> get _defaultDirectory => switch (defaultTargetPlatform) {
+        TargetPlatform.linux => getDownloadsDirectory().then((value) => value!.path),
+        _ => getApplicationSupportDirectory().then((value) => value.path),
+      };
 
   Future<void> setPath(String path) async {
     ref.read(_syncSettingsRepositoryProvider).syncDirectory = path;
@@ -80,3 +85,10 @@ class SyncStatusController extends _$SyncStatusController {
 
   void reset() => state = const SyncStatusReady();
 }
+
+@riverpod
+Future<bool> backupItemExists(
+  BackupItemExistsRef ref, {
+  required String path,
+}) =>
+    ref.read(_filesRepositoryProvider).dirExists(path);

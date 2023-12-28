@@ -1,3 +1,8 @@
+# 0.0.2
+
+- Sync Button is now auto-focused to quickly enable sync
+- Missing backup folders are visually distinguished by being grayed out
+
 # 0.0.1
 
 Initial version:

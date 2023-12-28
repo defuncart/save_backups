@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const _ExitButton(),
+        leading: const _AutoFocusExitButton(),
       ),
       body: const _HomeScreenContent(),
       floatingActionButton: FloatingActionButton.small(
@@ -32,8 +32,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _ExitButton extends ConsumerWidget {
-  const _ExitButton();
+class _AutoFocusExitButton extends ConsumerWidget {
+  const _AutoFocusExitButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,11 +41,28 @@ class _ExitButton extends ConsumerWidget {
 
     return switch (state) {
       SyncStatusProgress() => const SizedBox.shrink(),
-      _ => IconButton(
-          onPressed: () => exit(0),
-          icon: const Icon(Icons.close),
+      SyncStatusReady() => const _ExitButton(),
+      SyncStatusCompleted() => const _ExitButton(
+          shouldFocus: true,
         ),
     };
+  }
+}
+
+class _ExitButton extends StatelessWidget {
+  const _ExitButton({
+    this.shouldFocus = false,
+  });
+
+  final bool shouldFocus;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      focusNode: (shouldFocus ? FocusNode() : null)?..requestFocus(),
+      onPressed: () => exit(0),
+      icon: const Icon(Icons.close),
+    );
   }
 }
 
@@ -97,6 +114,7 @@ class _SyncButton extends ConsumerWidget {
       height: 120,
       width: 120,
       child: FilledButton.icon(
+        focusNode: FocusNode()..requestFocus(),
         onPressed: onSync,
         icon: const Icon(Icons.sync),
         label: Text(

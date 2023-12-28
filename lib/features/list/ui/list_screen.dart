@@ -175,6 +175,8 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
     onOpen() => launchUrl(Uri.directory(_item.path));
     onRemove() => ref.read(backupItemsProvider.notifier).remove(_item.id);
 
+    final backupItemExists = ref.watch(backupItemExistsProvider(path: widget.item.path)).value ?? true;
+
     return ContextMenuRegion(
       onDismissed: () {},
       onItemSelected: (item) {
@@ -208,45 +210,48 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
           ),
         ),
         onDismissed: (_) => onRemove(),
-        child: ListTile(
-          isThreeLine: _hasUnsavedChanges,
-          title: TextField(
-            controller: _controller,
-            onEditingComplete: () {
-              final text = _controller.text.trim();
-              if (text.isNotEmpty) {
-                ref.read(backupItemsProvider.notifier).updateName(
-                      item: _item,
-                      folderName: text,
-                    );
-                _focusNode.unfocus();
-                setState(() => _hasUnsavedChanges = false);
-              }
-            },
-            focusNode: _focusNode,
-            decoration: InputDecoration.collapsed(
-              hintText: context.l10n.listScreenBackupItemNameHintText,
+        child: Opacity(
+          opacity: backupItemExists ? 1 : 0.6,
+          child: ListTile(
+            isThreeLine: _hasUnsavedChanges,
+            title: TextField(
+              controller: _controller,
+              onEditingComplete: () {
+                final text = _controller.text.trim();
+                if (text.isNotEmpty) {
+                  ref.read(backupItemsProvider.notifier).updateName(
+                        item: _item,
+                        folderName: text,
+                      );
+                  _focusNode.unfocus();
+                  setState(() => _hasUnsavedChanges = false);
+                }
+              },
+              focusNode: _focusNode,
+              decoration: InputDecoration.collapsed(
+                hintText: context.l10n.listScreenBackupItemNameHintText,
+              ),
+              // disable context menu to avoid interfering with native context menu
+              contextMenuBuilder: (context, state) => const SizedBox.shrink(),
             ),
-            // disable context menu to avoid interfering with native context menu
-            contextMenuBuilder: (context, state) => const SizedBox.shrink(),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.folder),
-            onPressed: onOpen,
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 4),
-              Text(_item.path),
-              if (_hasUnsavedChanges)
-                Text(
-                  context.l10n.listScreenBackupItemNameUnsavedChangesWarning,
-                  style: context.textTheme.labelSmall?.apply(
-                    color: context.colorScheme.error,
+            trailing: IconButton(
+              icon: const Icon(Icons.folder),
+              onPressed: onOpen,
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 4),
+                Text(_item.path),
+                if (_hasUnsavedChanges)
+                  Text(
+                    context.l10n.listScreenBackupItemNameUnsavedChangesWarning,
+                    style: context.textTheme.labelSmall?.apply(
+                      color: context.colorScheme.error,
+                    ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
