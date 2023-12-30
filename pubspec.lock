@@ -25,6 +25,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.3"
+  app_store_screenshots:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: "feature/desktop-window-without-device-frame"
+      resolved-ref: "5cb74107c172cc4850633ff9c9318fe87d1e4aad"
+      url: "https://github.com/defuncart/app_store_screenshots"
+    source: git
+    version: "0.0.1"
   arb_generator:
     dependency: "direct dev"
     description:
@@ -249,6 +258,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.4"
+  device_frame:
+    dependency: transitive
+    description:
+      path: device_frame
+      ref: "feature/add-desktop-window-option"
+      resolved-ref: "3975cc513c03380a8be1f30e5a28df3e7fef3d17"
+      url: "https://github.com/defuncart/fork_flutter_device_preview"
+    source: git
+    version: "1.1.0"
   equatable:
     dependency: transitive
     description:
@@ -429,6 +447,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  golden_toolkit:
+    dependency: transitive
+    description:
+      name: golden_toolkit
+      sha256: "8f74adab33154fe7b731395782797021f97d2edc52f7bfb85ff4f1b5c4a215f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.0"
   graphs:
     dependency: transitive
     description:
