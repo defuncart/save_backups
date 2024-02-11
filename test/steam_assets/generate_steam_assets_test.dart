@@ -22,6 +22,10 @@ void main() {
     ),
   );
 
+  generateStreamLogo(
+    onBuildLogo: (size) => const SizedBox.shrink(),
+  );
+
   generateStreamBackground(
     onBuildBackground: (size) => Theme(
       data: darkTheme,
