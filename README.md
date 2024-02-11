@@ -32,6 +32,10 @@ In desktop mode, the application can be added to Steam Launcher as a Non-Steam g
 
 ### Building from Source
 
+In desktop mode, the application can be added to Steam Launcher as a Non-Steam game via content menu, Lutris or Heroic. Official artwork assets can be found in [assets_dev/steam](assets_dev/steam) and added via Steam launcher.
+
+## Building Locally
+
 If you wish to build from source, you will require:
 
 - Flutter >= 3.16
