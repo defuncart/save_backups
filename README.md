@@ -26,12 +26,16 @@ Looking for more functionality? Check out [ludusavi](https://github.com/mtkenner
 
 ## Releases
 
-Check out [releases](https://github.com/defuncart/game_saves_backup/releases) for the latest release.
+The latest release can be found [here](https://github.com/defuncart/game_saves_backup/releases/latest). 
+
+In desktop mode, the application can be added to Steam Launcher as a Non-Steam game via content menu, Lutris or Heroic.
+
+### Building from Source
 
 If you wish to build from source, you will require:
 
-- Flutter >= 3.13
-- Dart >= 3.1
+- Flutter >= 3.16
+- Dart >= 3.2
 - linux:
     - clang
     - ninja-build
