@@ -4,7 +4,7 @@ on:
     tags:
       - '*'
 env:
-  BUILD_PATH_LINUX: build/linux/x64/release/
+  BUILD_PATH_LINUX: build/linux/x64/release/bundle/
   BUILD_NAME_LINUX: game_saves_backup
   ARTIFACT_NAME: game_saves_backup
 permissions:
