@@ -13,16 +13,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter 
   intl:
-  flutter_riverpod: ^2.4.9
-  riverpod_annotation: ^2.3.3
-  file_selector: ^1.0.1
-  url_launcher: ^6.2.2
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+  file_selector: ^1.0.3
+  url_launcher: ^6.2.5
   native_context_menu: ^0.2.2+5
   uuid: ^4.0.0
   hive: ^4.0.0-dev.2
   isar_flutter_libs: ^4.0.0-dev.14
-  path_provider: ^2.1.1
-  path: ^1.8.3
+  path_provider: ^2.1.2
+  path: ^1.9.0
   clock: ^1.1.1
 
 dev_dependencies:
@@ -31,9 +31,9 @@ dev_dependencies:
   flutter_lints: ^3.0.1
   arb_generator: ^0.0.3
   build_runner:
-  riverpod_generator: ^2.3.9
+  riverpod_generator: ^2.4.0
   custom_lint:
-  riverpod_lint: ^2.3.7
+  riverpod_lint: ^2.3.10
 
 flutter:
   uses-material-design: true
