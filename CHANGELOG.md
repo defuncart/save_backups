@@ -1,3 +1,7 @@
+# 0.0.3
+
+- Reduce distribution size
+
 # 0.0.2
 
 - Sync Button is now auto-focused to quickly enable sync
