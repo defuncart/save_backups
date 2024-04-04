@@ -20,14 +20,7 @@ class HomeScreen extends StatelessWidget {
         leading: const _AutoFocusExitButton(),
       ),
       body: const _HomeScreenContent(),
-      floatingActionButton: FloatingActionButton.small(
-        child: const Icon(Icons.settings),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const ListScreen(),
-          ),
-        ),
-      ),
+      floatingActionButton: const _FAB(),
     );
   }
 }
@@ -182,5 +175,26 @@ class _SyncCompleted extends StatelessWidget {
         ),
       ].intersperse(const SizedBox(height: 8)),
     );
+  }
+}
+
+class _FAB extends ConsumerWidget {
+  const _FAB();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(syncStatusControllerProvider);
+
+    return switch (state) {
+      SyncStatusProgress() => const SizedBox.shrink(),
+      _ => FloatingActionButton.small(
+          child: const Icon(Icons.settings),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const ListScreen(),
+            ),
+          ),
+        ),
+    };
   }
 }
