@@ -65,7 +65,7 @@ class SteamAsset extends StatelessWidget {
                 'Game\nSaves\nBackup',
                 style: TextStyle(
                   fontSize: size.shortestSide * 0.6 * 0.1825,
-                  color: context.colorScheme.primary.withOpacity(0.6),
+                  color: context.colorScheme.primary,
                 ),
               ),
             ],
