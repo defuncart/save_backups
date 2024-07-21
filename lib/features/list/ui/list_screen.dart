@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -172,7 +175,15 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
   @override
   Widget build(BuildContext context) {
     // TODO: Does not seem to work on Arch
-    onOpen() => launchUrl(Uri.directory(_item.path));
+    // onOpen() => launchUrl(Uri.directory(_item.path));
+    onOpen() {
+      if (defaultTargetPlatform == TargetPlatform.linux) {
+        Process.runSync('dolphin', [_item.path]);
+      } else {
+        launchUrl(Uri.directory(_item.path));
+      }
+    }
+
     onRemove() => ref.read(backupItemsProvider.notifier).remove(_item.id);
 
     final backupItemExists = ref.watch(backupItemExistsProvider(path: widget.item.path)).value ?? true;
