@@ -1,3 +1,8 @@
+# 0.0.3
+
+- Reduce distribution size
+- Do not show settings button while sync is in progress
+
 # 0.0.2
 
 - Sync Button is now auto-focused to quickly enable sync
