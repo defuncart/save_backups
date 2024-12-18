@@ -18,6 +18,8 @@ final _syncSettingsRepositoryProvider = AutoDisposeProvider<SyncSettingsReposito
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef _SyncSettingsRepositoryRef = AutoDisposeProviderRef<SyncSettingsRepository>;
 String _$filesRepositoryHash() => r'5324da4beee0847fbeb60560d11e8a83092d516d';
 
@@ -31,6 +33,8 @@ final _filesRepositoryProvider = AutoDisposeProvider<FilesRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef _FilesRepositoryRef = AutoDisposeProviderRef<FilesRepository>;
 String _$backupItemExistsHash() => r'76658db805b09e5c73fdc9301ef4093f1fd1e01d';
 
@@ -163,6 +167,8 @@ class BackupItemExistsProvider extends AutoDisposeFutureProvider<bool> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin BackupItemExistsRef on AutoDisposeFutureProviderRef<bool> {
   /// The parameter `path` of this provider.
   String get path;
@@ -216,4 +222,4 @@ final syncStatusControllerProvider = AutoDisposeNotifierProvider<SyncStatusContr
 
 typedef _$SyncStatusController = AutoDisposeNotifier<SyncStatus>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

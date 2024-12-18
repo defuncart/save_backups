@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/repositories/items_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/uuid_repository.dart';
@@ -7,10 +8,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'backup_items_state.g.dart';
 
 @riverpod
-ItemsRepository _itemsRepository(_ItemsRepositoryRef ref) => HiveItemsRepository();
+ItemsRepository _itemsRepository(Ref ref) => HiveItemsRepository();
 
 @riverpod
-UUIDRepository _uuidRepository(_UuidRepositoryRef ref) => UUIDRepositoryImpl();
+UUIDRepository _uuidRepository(Ref ref) => UUIDRepositoryImpl();
 
 @riverpod
 class BackupItems extends _$BackupItems {
@@ -51,7 +52,7 @@ class BackupItems extends _$BackupItems {
 }
 
 @riverpod
-bool hasBackupItems(HasBackupItemsRef ref) => ref.watch(backupItemsProvider).isNotEmpty;
+bool hasBackupItems(Ref ref) => ref.watch(backupItemsProvider).isNotEmpty;
 
 extension on BackupItem {
   BackupItem updateFolderName(String folderName) => BackupItem(
