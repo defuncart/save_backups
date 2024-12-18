@@ -178,7 +178,11 @@ class __BackupItemTileState extends ConsumerState<_BackupItemTile> {
     // onOpen() => launchUrl(Uri.directory(_item.path));
     onOpen() {
       if (defaultTargetPlatform == TargetPlatform.linux) {
-        Process.runSync('dolphin', [_item.path]);
+        Process.runSync(
+          'dolphin',
+          [_item.path, '&'],
+          // runInShell: true,
+        );
       } else {
         launchUrl(Uri.directory(_item.path));
       }
