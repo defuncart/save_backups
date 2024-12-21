@@ -2,6 +2,7 @@ import 'dart:developer' show log;
 
 import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/sync/models/sync_progress.dart';
 import 'package:game_saves_backup/core/sync/repositories/files_repository.dart';
 import 'package:game_saves_backup/core/sync/repositories/settings_repository.dart';
@@ -13,10 +14,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sync_items_state.g.dart';
 
 @riverpod
-SyncSettingsRepository _syncSettingsRepository(_SyncSettingsRepositoryRef ref) => HiveSyncSettingsRepository();
+SyncSettingsRepository _syncSettingsRepository(Ref ref) => HiveSyncSettingsRepository();
 
 @riverpod
-FilesRepository _filesRepository(_FilesRepositoryRef ref) => FilesRepository();
+FilesRepository _filesRepository(Ref ref) => FilesRepository();
 
 @riverpod
 class SyncDirectoryController extends _$SyncDirectoryController {
@@ -88,7 +89,7 @@ class SyncStatusController extends _$SyncStatusController {
 
 @riverpod
 Future<bool> backupItemExists(
-  BackupItemExistsRef ref, {
+  Ref ref, {
   required String path,
 }) =>
     ref.read(_filesRepositoryProvider).dirExists(path);

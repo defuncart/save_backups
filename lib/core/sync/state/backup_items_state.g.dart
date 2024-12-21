@@ -18,6 +18,8 @@ final _itemsRepositoryProvider = AutoDisposeProvider<ItemsRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef _ItemsRepositoryRef = AutoDisposeProviderRef<ItemsRepository>;
 String _$uuidRepositoryHash() => r'aa2c84834077ed67e599b255ec0729540537b881';
 
@@ -31,6 +33,8 @@ final _uuidRepositoryProvider = AutoDisposeProvider<UUIDRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef _UuidRepositoryRef = AutoDisposeProviderRef<UUIDRepository>;
 String _$hasBackupItemsHash() => r'4fc0570e3d073ee359e03a965b7deec95f495acd';
 
@@ -44,6 +48,8 @@ final hasBackupItemsProvider = AutoDisposeProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef HasBackupItemsRef = AutoDisposeProviderRef<bool>;
 String _$backupItemsHash() => r'589c8e65d09eb99ca703c83c08ae856512e59785';
 
@@ -59,4 +65,4 @@ final backupItemsProvider = AutoDisposeNotifierProvider<BackupItems, List<Backup
 
 typedef _$BackupItems = AutoDisposeNotifier<List<BackupItem>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
