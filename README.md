@@ -8,6 +8,7 @@ A linux application to backup game saves.
 - Compatible with Lutris, Heroic, Steam, Emulation etc.
 - Individual game backup folder names can be customized
     - Inside prefixes, folder name defaults to prefix name
+    - Inside Steam folder, folder name defaults to Steam id
 - Target Backup folder can be selected (defaults to `/home/deck/Downloads`)
 - Each sync can either overwrite existing backup or creates a new backup
 - Minimal, easy to use interface

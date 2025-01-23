@@ -1,3 +1,7 @@
+# 0.0.4
+
+- Backup folder name: Inside Steam folder, folder name defaults to Steam id
+
 # 0.0.3
 
 - Reduce distribution size

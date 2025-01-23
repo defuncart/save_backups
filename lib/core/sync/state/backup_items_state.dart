@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_saves_backup/core/sync/models/backup_item.dart';
 import 'package:game_saves_backup/core/sync/repositories/items_repository.dart';
@@ -22,10 +23,7 @@ class BackupItems extends _$BackupItems {
 
   void add({required String path}) {
     final id = ref.read(_uuidRepositoryProvider).generate();
-    final pathComponents = p.split(path);
-    final folderName = pathComponents.indexOf('drive_c') > 0
-        ? pathComponents.sublist(0, pathComponents.indexOf('drive_c')).last
-        : pathComponents.last;
+    final folderName = determineFolderNameForPath(path);
     ref.read(_itemsRepositoryProvider).addItem(
           BackupItem(
             id: id,
@@ -49,6 +47,25 @@ class BackupItems extends _$BackupItems {
     ref.read(_itemsRepositoryProvider).removeItem(id);
     state = _getAllItems();
   }
+}
+
+@visibleForTesting
+String determineFolderNameForPath(String path) {
+  final pathComponents = p.split(path);
+  // prefix
+  if (pathComponents.indexOf('drive_c') > 0) {
+    return pathComponents.sublist(0, pathComponents.indexOf('drive_c')).last;
+  }
+  // steam save
+  else if (pathComponents.contains('userdata')) {
+    final index = pathComponents.indexOf('userdata');
+    final indexSteamId = index + 2;
+    if (index > 0 && indexSteamId < pathComponents.length) {
+      return pathComponents[indexSteamId];
+    }
+  }
+
+  return pathComponents.last;
 }
 
 @riverpod
